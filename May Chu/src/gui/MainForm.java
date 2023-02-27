@@ -107,6 +107,7 @@ public class MainForm implements ActionListener{
 	private ArrayList<Computers> danhSachMay;
 	private ArrayList<Users> danhSachTaiKhoan;
 	private ArrayList<Online> danhSachMayVaNguoiChoiOnline;
+	private ArrayList<String> danhSachTenTaiKhoan;
 	
 	private String adminName, adminPassword;
 	
@@ -218,7 +219,7 @@ public class MainForm implements ActionListener{
 		tongQuanTableModel.addColumn("ID");
 		tongQuanTableModel.addColumn("Tên Máy");
 		tongQuanTableModel.addColumn("Tên Tài Khoản");
-		tongQuanTableModel.addColumn("Loại Máy");
+		tongQuanTableModel.addColumn("Tổng Số Tiền Đã Nạp");
 		danhSachMayTable = new JTable(danhSachMayTableModel);
 		danhSachMayTableModel.addColumn("ID");
 		danhSachMayTableModel.addColumn("Mã Máy");
@@ -477,7 +478,7 @@ public class MainForm implements ActionListener{
 		
 		if(e.getSource() == sendButton) {
 			if(checkHost == 0) {
-				JOptionPane.showMessageDialog(mainFrame, "Bạn không thể chat vì chưa mở kết nối!!!");
+				JOptionPane.showMessageDialog(mainFrame, "Bạn Không Thể Chat Vì Chưa Mở Kết Nối!!!");
 			}
 			else {
 				sendMessage();
@@ -514,7 +515,7 @@ public class MainForm implements ActionListener{
 				checkHost++;
 			}
 			else {
-				JOptionPane.showMessageDialog(mainFrame, "Bạn đang mở kết nối!!!");
+				JOptionPane.showMessageDialog(mainFrame, "Bạn Đang Mở Kết Nối!!!");
 			}
 		}
 		
@@ -524,6 +525,9 @@ public class MainForm implements ActionListener{
 		
 		if (e.getSource() == xoaTaiKhoanButton) {
 			xoaKhach();
+		}
+		if (e.getSource() == refreshButton) {
+			showDanhSachMayVaNguoiChoiOnline();
 		}
 	}
 	
@@ -757,14 +761,16 @@ public class MainForm implements ActionListener{
 			
 			int curentMoney = Integer.parseInt(money);
 			
-			boolean success = SQLStatments.updateComputer(tenMayCu, tenMayMoi, loaiMay, curentMoney); //can lay ten may cu
-			if (success == true) {
-				JOptionPane.showMessageDialog(mainFrame, "Cập Nhật Thành Công!");
-				showMay();
-			}
-			else {
+			if (SQLStatments.checkTenMay(tenMayCu) == false) {
 				JOptionPane.showMessageDialog(mainFrame, "Máy Không Nằm Trong Danh Sách!");
 			}
+			else {
+				SQLStatments.updateComputer(tenMayCu, tenMayMoi, loaiMay, curentMoney);
+				JOptionPane.showMessageDialog(mainFrame, "Cập Nhật Thành Công!");
+				showMay();
+				resetMayField();
+			}
+			
 		}
 	}
 	

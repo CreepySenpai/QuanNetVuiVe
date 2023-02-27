@@ -385,7 +385,7 @@ public class MainForm implements ActionListener{
 		if (messageOut.equals("")) {
 			return;
 		}
-		messageOut = "User: " + messageOut;
+		messageOut = userName + ": " + messageOut;
 		khungChatTextPane.append(messageOut + "\n");
 		socketLib.Send(messageOut);
 		

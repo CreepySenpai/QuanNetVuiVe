@@ -129,6 +129,27 @@ public class SQLStatments {
 		return danhSachDangOnline;
 	}
 	
+	public static boolean checkTenMay(String computerName){
+		boolean tonTai = false;
+		Connection connection = Connecting.getConnection();
+		Statement statement = null;
+		
+		try {
+			String sqlString = "SELECT COMPUTERNAME FROM COMPUTER";
+			statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(sqlString);
+			while(resultSet.next()) {
+				String name = resultSet.getString("COMPUTERNAME");
+				if (name.equals(computerName)) {
+					tonTai = true;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return tonTai;
+	}
+	
 	public static void themMay(String computerName, String loaiMay, int money) {
 		Connection connection = Connecting.getConnection();
 		
@@ -233,8 +254,7 @@ public class SQLStatments {
 		return computer;
 	}
 	
-	public static boolean updateComputer(String oldComputerName, String newComputerName, String computerType, int money) {
-		boolean success = true;
+	public static void updateComputer(String oldComputerName, String newComputerName, String computerType, int money) {
 		
 		Connection connection = Connecting.getConnection();
 		
@@ -249,10 +269,7 @@ public class SQLStatments {
 			preparedStatement.setString(2, computerType);
 			preparedStatement.setInt(3, money);
 			preparedStatement.setString(4, oldComputerName);
-			
-			if (preparedStatement.execute() == true) {
-				success = false;
-			}
+			preparedStatement.execute();
 			
 		} catch (Exception e) {
 			e.getMessage();
@@ -260,8 +277,6 @@ public class SQLStatments {
 		
 		Connecting.closeConnection(connection);
 		Connecting.closeStament(preparedStatement);
-		
-		return success;
 	}
 	
 	public static void DeleteComputer(String computerName) {
