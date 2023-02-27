@@ -466,17 +466,12 @@ public class MainForm implements ActionListener{
 		if ((currentPassLength <= 0) || (newPassLength <= 0)) {
 			JOptionPane.showMessageDialog(mainFrame, "Không Được Để Trống!");
 		}
-		else if (getCurrentPass.equals(currentPassword) == false) {
+		else if (!getCurrentPass.equals(currentPassword)) {
 			JOptionPane.showMessageDialog(mainFrame, "Mật Khẩu Hiện Tại Không Chính Xác!");
 		}
 		else {
-			boolean success = RequestUser.capNhatMatKhau(userName, getNewPass);
-			if (success == true) {
-				JOptionPane.showMessageDialog(mainFrame, "Cập Nhật Thành Công!");
-			}
-			else {
-				JOptionPane.showMessageDialog(mainFrame, "Thất Bại!");
-			}
+			RequestUser.capNhatMatKhau(userName, getNewPass);
+			JOptionPane.showMessageDialog(mainFrame, "Cập Nhật Thành Công!");
 		}
 	}
 	

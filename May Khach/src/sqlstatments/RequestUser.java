@@ -209,30 +209,25 @@ public class RequestUser {
 		return sotTienCuaMay;
 	}
 	
-	public static boolean capNhatMatKhau(String userName, String newPass) {
-		boolean thanhcong = false;
+	public static void capNhatMatKhau(String userName, String newPass) {
 		Connection connection = Connecting.getConnection();
 		PreparedStatement preparedStatement = null;
 		
 		try {
 			
-			String sql = "UPDATE KHACHHANG SET PASSWORD = ?, WHERE USERNAME = ?";
+			String sql = "UPDATE KHACHHANG SET PASSWORD = ? WHERE USERNAME = ?";
 			
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, newPass);
 			preparedStatement.setString(2, userName);
 			
-			if (preparedStatement.execute() == false) {
-				thanhcong = true;
-			}
-			
+			preparedStatement.executeUpdate();
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		
 		Connecting.closeConnection(connection);
 		Connecting.closeStament(preparedStatement);
-		return thanhcong;
 	}
 	
 }

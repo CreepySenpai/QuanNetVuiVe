@@ -679,7 +679,7 @@ public class MainForm implements ActionListener{
 			}
 		}
 		else {
-			JOptionPane.showMessageDialog(mainFrame, "Chưa Nhập Bạn Ê!");
+			JOptionPane.showMessageDialog(mainFrame, "Chưa Nhập Tên Tài Khoản!");
 			showTaiKhoan();
 		}
 	}
@@ -700,6 +700,7 @@ public class MainForm implements ActionListener{
 		}
 		
 		else {
+			JOptionPane.showMessageDialog(mainFrame, "Chưa Nhập Tên Máy!");
 			showMay();
 		}
 	}

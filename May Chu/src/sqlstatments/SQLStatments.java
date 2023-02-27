@@ -232,7 +232,7 @@ public class SQLStatments {
 		
 		try {
 			
-			String findSQL = "SELECT * FROM COMPUTER WHERE COMPUTERNAME LIKE /'?/'";
+			String findSQL = "SELECT COMPUTERNAME, TINHTRANG, LOAIMAY, TIEN FROM COMPUTER WHERE COMPUTERNAME LIKE ?";
 			
 			preparedStatement = connection.prepareStatement(findSQL);
 			
@@ -241,7 +241,7 @@ public class SQLStatments {
 			ResultSet resultSet = preparedStatement.executeQuery();
 			
 			while (resultSet.next()) {
-				computer.add(new Computers(resultSet.getString("COMPUTERNAME"), resultSet.getString("TINHTRANG"), resultSet.getString("LOAIMAY"), resultSet.getInt("MONEY")));
+				computer.add(new Computers(resultSet.getString("COMPUTERNAME"), resultSet.getString("TINHTRANG"), resultSet.getString("LOAIMAY"), resultSet.getInt("TIEN")));
 			}
 			
 		} catch (Exception e) {

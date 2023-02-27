@@ -192,12 +192,18 @@ public class MayKhachLoginForm implements ActionListener{
 					JOptionPane.showMessageDialog(loginFrame, "Không Đủ Tiền Chơi!");
 				}
 				else {
-					JOptionPane.showMessageDialog(loginFrame, "Đăng Nhập Thành Công");
-					loginFrame.setVisible(false);
 					String computerName = getComputerName();
-					int tongSoTien = RequestUser.getTongSoTien(userName);
-					RequestUser.setComputerOnline(computerName, userName);
-					new MainForm(computerName, userName, password, tongSoTien);
+					if(computerName.equals("")) {
+						JOptionPane.showMessageDialog(loginFrame, "Vui Lòng Chọn Máy!");
+					}
+					else {
+						JOptionPane.showMessageDialog(loginFrame, "Đăng Nhập Thành Công");
+						loginFrame.setVisible(false);
+						int tongSoTien = RequestUser.getTongSoTien(userName);
+						RequestUser.setComputerOnline(computerName, userName);
+						new MainForm(computerName, userName, password, tongSoTien);
+					}
+					
 				}
 			}
 			else {
@@ -219,20 +225,17 @@ public class MayKhachLoginForm implements ActionListener{
 	
 	private String getComputerName() {
 		String computerName = "";
-		if (checkSelect() == false) {
-			JOptionPane.showMessageDialog(loginFrame, "Vui Lòng Chọn Máy");
-		}
-		else {
+		if (checkSelect() == true) {
 			computerName = danhSachMay.getSelectedValue();
 		}
 		return computerName;
 	}
 	
 	private boolean checkSelect() {
-		boolean select = false;
+		boolean select = true;
 		
-		if (danhSachMay.getSelectedValue() != "__Chọn Máy__") {
-			select = true;
+		if (danhSachMay.getSelectedValue().equals("__Chọn Máy__")) {
+			select = false;
 		}
 		
 		return select;
