@@ -132,16 +132,7 @@ public class MainForm implements ActionListener{
 		mainFrame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				
-				Thread thread = new Thread() {
-					@Override
-					public void run() {
-						RequestUser.setComputerOffline(computerName);
-					}
-				};
-				
-				thread.start();
-				
+				RequestUser.setComputerOffline(computerName);
 				try {
 					if(socket != null) SocketLib.CloseConnect(socket);
 					if(socketLib != null) socketLib.CloseConnect();

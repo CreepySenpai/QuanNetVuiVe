@@ -579,6 +579,9 @@ public class MainForm implements ActionListener{
 		if ((tenNguoiNopTien.length() == 0) || (moneyString.length() == 0)) {
 			JOptionPane.showMessageDialog(mainFrame, "Không Được Để Trống!");
 		}
+		else if (!SQLStatments.checkTenTaiKhoan(tenNguoiNopTien)) {
+			JOptionPane.showMessageDialog(mainFrame, "Tên Tài Khoản Không Tồn Tại!");
+		}
 		else {
 			if(isMoney(moneyString) == false) {
 				JOptionPane.showMessageDialog(mainFrame, "Số Tiền Nhập Không Hợp Lệ!");

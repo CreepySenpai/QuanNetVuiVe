@@ -147,6 +147,32 @@ public class SQLStatments {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		Connecting.closeConnection(connection);
+		Connecting.closeStament(statement);
+		return tonTai;
+	}
+	
+	public static boolean checkTenTaiKhoan(String userName) {
+		boolean tonTai = false;
+		Connection connection = Connecting.getConnection();
+		Statement statement = null;
+		
+		try {
+			String sqlString = "SELECT USERNAME FROM KHACHHANG";
+			statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(sqlString);
+			while(resultSet.next()) {
+				String name = resultSet.getString("USERNAME");
+				if(name.equals(userName)) {
+					tonTai = true;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		Connecting.closeConnection(connection);
+		Connecting.closeStament(statement);
 		return tonTai;
 	}
 	
